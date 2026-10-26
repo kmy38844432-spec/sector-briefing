@@ -1,0 +1,4 @@
+site/
+artifact/
+__pycache__/
+*.png

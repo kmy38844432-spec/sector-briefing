@@ -1,0 +1,427 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>월간 섹터 브리핑</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#ffffff; --fg:#1d2230; --muted:#6b7385; --faint:#9aa1b1; --line:#e3e6ec; --panel:#f5f7fa;
+  --up:#d93838; --dn:#2f64d2; --flat:#6b7385; --up-fill:#fadcdc; --dn-fill:#dfe7f8; --base:#9aa1b1; --grid:#eceef2;
+  --sans:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12151c; --fg:#e7eaf0; --muted:#9aa2b3; --faint:#6c7487; --line:#2a303c; --panel:#1a1f28;
+  --up:#ff6b6b; --dn:#6d9bff; --flat:#9aa2b3; --up-fill:#4a2228; --dn-fill:#1f2d4d; --base:#6c7487; --grid:#232833; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12151c; --fg:#e7eaf0; --muted:#9aa2b3; --faint:#6c7487; --line:#2a303c; --panel:#1a1f28;
+  --up:#ff6b6b; --dn:#6d9bff; --flat:#9aa2b3; --up-fill:#4a2228; --dn-fill:#1f2d4d; --base:#6c7487; --grid:#232833; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);margin:0}
+.wrap{max-width:1300px;margin:0 auto;padding:28px 24px 24px;display:flex;flex-direction:column;gap:20px}
+h1{font-size:clamp(22px,4vw,30px);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:15px;margin:0 0 10px;letter-spacing:.02em;color:var(--muted);font-weight:600}
+.badge{display:inline-block;font-size:.55em;vertical-align:middle;padding:2px 8px;border-radius:4px;background:var(--panel);color:var(--muted);margin-right:8px;font-weight:600}
+.sub{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6}
+.up{color:var(--up)} .dn{color:var(--dn)} .flat{color:var(--flat)}
+.top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:20px}
+.panel{background:var(--panel);border-radius:8px;padding:16px 20px;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.stat{display:flex;flex-direction:column;gap:2px}
+.lbl{font-size:11px;color:var(--muted)}
+.num{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.facts{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13.5px;line-height:1.6}
+.facts .k{display:inline-block;min-width:64px;color:var(--muted);font-size:12px}
+.comment{font-size:14px;line-height:1.75}
+.comment p{margin:0 0 8px} .comment ul{margin:4px 0 8px;padding-left:18px} .comment li{margin:2px 0}
+.comment h3{font-size:14px;margin:12px 0 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.card{min-width:0;border:1.5px solid var(--line);border-radius:6px;padding:14px 16px 8px;display:flex;flex-direction:column;gap:8px}
+.head{display:flex;align-items:baseline;gap:12px;min-width:0}
+.title{font-size:18px;font-weight:700;white-space:nowrap}
+.etf{font-size:11px;color:var(--faint);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inner{display:flex;gap:10px}
+.chart{flex:0 0 58%;min-width:0}
+.spark{width:100%;height:130px;display:block;overflow:visible}
+.fill-up{fill:var(--up-fill)} .fill-dn{fill:var(--dn-fill)}
+.base{stroke:var(--base);stroke-dasharray:3 3;stroke-width:1}
+.tick{stroke:var(--grid);stroke-width:1}
+.tl{fill:var(--faint);font-size:9px;font-family:var(--sans)}
+.ln{fill:none;stroke-width:1.4;stroke-linejoin:round}
+.ln.up{stroke:var(--up)} .ln.dn{stroke:var(--dn)} .ln.flat{stroke:var(--flat)}
+.dot.up{fill:var(--up)} .dot.dn{fill:var(--dn)}
+.list{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-around;font-size:13px}
+.row{display:flex;justify-content:space-between;gap:6px}
+.nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.muted{color:var(--faint);justify-content:center}
+.pct{font-variant-numeric:tabular-nums;padding:0 3px;border-radius:2px}
+.pct.big{font-size:19px;font-weight:600}
+.pct.hl.up{background:var(--up-fill)} .pct.hl.dn{background:var(--dn-fill)}
+.pat{font-size:11px;color:var(--muted)}
+.foot{font-size:11px;color:var(--faint)}
+@media (max-width:820px){.top{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.wrap{padding:20px 16px}.grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<div class="wrap">
+<header><h1><span class="badge">월간</span>한국 섹터별 흐름 · 2026년 10월 (10/1~10/26)</h1>
+<div class="sub">10/26 22:49 갱신 · 선=월간 흐름(일봉 종가), 점선=전월 종가(위 빨강 면·아래 파랑 면), 점=기간 중 고가·저가 · 빨강 상승, 파랑 하락, 칠한 칸 ±10% 이상 · 오른쪽은 ETF 구성종목 중 시가총액 상위 5종목의 이번 달 등락률</div></header>
+<div class="top">
+<section class="panel"><h2>숫자로 본 이번 달</h2><div class="stats">
+<div class="stat"><span class="lbl">KODEX 200</span><span class="num dn">-21.50%</span></div>
+<div class="stat"><span class="lbl">KODEX 코스닥150</span><span class="num dn">-16.95%</span></div>
+<div class="stat"><span class="lbl">섹터 상승 / 하락</span><span class="num"><b class="up">1</b> / <b class="dn">22</b></span></div>
+<div class="stat"><span class="lbl">대표종목 상승 / 하락</span><span class="num"><b class="up">18</b> / <b class="dn">78</b></span></div>
+</div>
+<ul class="facts">
+<li><span class="k">시장 흐름</span>10/2 고점 후 밀림 · 저가권 마감 · 고저폭 23.8%p · 시장보다 강한 섹터 18개</li>
+<li><span class="k">강세</span>미디어·엔터 <b class="up">+0.16%</b>, 게임 <b class="dn">-1.61%</b>, 헬스케어 <b class="dn">-3.54%</b></li>
+<li><span class="k">약세</span>조선·중공업 <b class="dn">-28.86%</b>, 반도체 <b class="dn">-27.76%</b>, 방산 <b class="dn">-27.27%</b></li>
+<li><span class="k">큰 변동</span>LIG디펜스앤에어로스페이스 <b class="dn">-37.68%</b>, HD현대 <b class="dn">-34.74%</b>, 효성중공업 <b class="dn">-33.69%</b>, HD현대중공업 <b class="dn">-33.37%</b>, 한화오션 <b class="dn">-32.99%</b>, 원익IPS <b class="dn">-31.97%</b></li>
+</ul></section>
+<section class="panel"><h2>이번 달의 해석</h2><div class="comment"><p><b>10월(26일까지)은 큰 조정을 받은 달입니다.</b> KODEX 200 <b class="dn">-21.50%</b>, 코스닥150 <b class="dn">-16.95%</b>입니다. 거의 모든 섹터가 10/1~10/7 사이에 고점을 찍은 뒤 저가권까지 밀렸습니다. 월말까지 거래일이 남아 있어 수치는 바뀔 수 있습니다.</p>
+<h3>그동안 많이 오른 주도 섹터가 가장 크게 빠짐</h3>
+<p>조선·중공업 <b class="dn">-28.86%</b>, 반도체 <b class="dn">-27.76%</b>, 방산 <b class="dn">-27.27%</b>, IT <b class="dn">-24.47%</b>가 하락률 상위입니다. SK하이닉스 <b class="dn">-27.65%</b>, 삼성전자 <b class="dn">-20.78%</b>까지 빠지면서 시가총액 비중이 큰 대형주가 지수 하락을 주도했습니다. 그래서 이번 달은 코스피 쪽 낙폭이 코스닥보다 더 컸던 것으로 보입니다.</p>
+<h3>상대적으로 버틴 곳</h3>
+<ul>
+<li>미디어·엔터 <b class="up">+0.16%</b>: 유일하게 플러스. 하이브 <b class="up">+12.56%</b>, JYP Ent. <b class="up">+11.69%</b>, CJ ENM <b class="up">+10.68%</b></li>
+<li>게임 <b class="dn">-1.61%</b>, 헬스케어 <b class="dn">-3.54%</b>: 유한양행 <b class="up">+12.10%</b>, 셀트리온 <b class="up">+6.86%</b> 등 대형 제약주가 받침</li>
+</ul>
+<h3>섹터와 반대로 움직인 종목</h3>
+<p>삼성E&amp;A <b class="up">+25.47%</b>는 건설 섹터(<b class="dn">-10.68%</b>)와 반대로 크게 올랐습니다. HMM <b class="up">+7.42%</b>, KT&amp;G <b class="up">+7.54%</b>, LG에너지솔루션 <b class="up">+5.91%</b>도 소속 섹터 약세 속에 올랐습니다. 반대로 HD현대 <b class="dn">-34.74%</b>, LIG디펜스앤에어로스페이스 <b class="dn">-37.68%</b>는 섹터 평균보다도 훨씬 크게 빠졌습니다.</p>
+</div></section>
+</div>
+<div class="grid"><div class="card">
+<div class="head"><span class="title">시장 전체</span><span class="etf">KODEX 200</span><span class="pct dn hl big">-21.50</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="시장 전체 흐름">
+<defs><clipPath id="u0"><rect x="0" y="0" width="240" height="18.0"/></clipPath>
+<clipPath id="d0"><rect x="0" y="18.0" width="240" height="100.0"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,18.0 4.0,10.2 19.5,8.1 34.9,13.3 50.4,21.8 65.9,33.2 81.3,48.9 96.8,73.7 112.3,75.5 127.7,105.8 143.2,99.1 158.7,94.5 174.1,106.9 189.6,95.3 205.1,107.8 220.5,105.6 236.0,109.9 236.0,18.0" clip-path="url(#u0)"/>
+<polygon class="fill-dn" points="4.0,18.0 4.0,10.2 19.5,8.1 34.9,13.3 50.4,21.8 65.9,33.2 81.3,48.9 96.8,73.7 112.3,75.5 127.7,105.8 143.2,99.1 158.7,94.5 174.1,106.9 189.6,95.3 205.1,107.8 220.5,105.6 236.0,109.9 236.0,18.0" clip-path="url(#d0)"/>
+<line class="base" x1="0" x2="240" y1="18.0" y2="18.0"/>
+<polyline class="ln dn" points="4.0,10.2 19.5,8.1 34.9,13.3 50.4,21.8 65.9,33.2 81.3,48.9 96.8,73.7 112.3,75.5 127.7,105.8 143.2,99.1 158.7,94.5 174.1,106.9 189.6,95.3 205.1,107.8 220.5,105.6 236.0,109.9"/>
+<circle class="dot up" cx="19.5" cy="8.1" r="3.2"><title>고가 10/2</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row muted">시장 전체</div></div></div>
+<div class="pat">10/2 고점 후 밀림 · 저가권 마감 · 고저폭 23.8%p</div>
+</div><div class="card">
+<div class="head"><span class="title">코스닥150</span><span class="etf">KODEX 코스닥150</span><span class="pct dn hl big">-16.95</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="코스닥150 흐름">
+<defs><clipPath id="u1"><rect x="0" y="0" width="240" height="45.0"/></clipPath>
+<clipPath id="d1"><rect x="0" y="45.0" width="240" height="73.0"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,45.0 4.0,22.3 19.5,25.9 34.9,8.1 50.4,21.5 65.9,26.3 81.3,46.9 96.8,51.1 112.3,59.2 127.7,89.9 143.2,73.7 158.7,64.4 174.1,80.5 189.6,75.1 205.1,90.8 220.5,98.4 236.0,109.9 236.0,45.0" clip-path="url(#u1)"/>
+<polygon class="fill-dn" points="4.0,45.0 4.0,22.3 19.5,25.9 34.9,8.1 50.4,21.5 65.9,26.3 81.3,46.9 96.8,51.1 112.3,59.2 127.7,89.9 143.2,73.7 158.7,64.4 174.1,80.5 189.6,75.1 205.1,90.8 220.5,98.4 236.0,109.9 236.0,45.0" clip-path="url(#d1)"/>
+<line class="base" x1="0" x2="240" y1="45.0" y2="45.0"/>
+<polyline class="ln dn" points="4.0,22.3 19.5,25.9 34.9,8.1 50.4,21.5 65.9,26.3 81.3,46.9 96.8,51.1 112.3,59.2 127.7,89.9 143.2,73.7 158.7,64.4 174.1,80.5 189.6,75.1 205.1,90.8 220.5,98.4 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="알테오젠">알테오젠</span><span class="pct dn hl">-14.68</span></div><div class="row"><span class="nm" title="에코프로">에코프로</span><span class="pct dn hl">-11.86</span></div><div class="row"><span class="nm" title="에코프로비엠">에코프로비엠</span><span class="pct dn hl">-17.34</span></div><div class="row"><span class="nm" title="주성엔지니어링">주성엔지니어링</span><span class="pct dn hl">-27.87</span></div><div class="row"><span class="nm" title="HLB">HLB</span><span class="pct dn">-4.84</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 26.6%p</div>
+</div><div class="card">
+<div class="head"><span class="title">미디어·엔터</span><span class="etf">TIGER 미디어컨텐츠</span><span class="pct up big">0.16</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="미디어·엔터 흐름">
+<defs><clipPath id="u2"><rect x="0" y="0" width="240" height="95.1"/></clipPath>
+<clipPath id="d2"><rect x="0" y="95.1" width="240" height="22.9"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,95.1 4.0,106.6 19.5,106.6 34.9,109.9 50.4,75.4 65.9,65.6 81.3,109.9 96.8,93.5 112.3,70.5 127.7,85.3 143.2,45.9 158.7,8.1 174.1,21.3 189.6,32.7 205.1,50.8 220.5,70.5 236.0,93.5 236.0,95.1" clip-path="url(#u2)"/>
+<polygon class="fill-dn" points="4.0,95.1 4.0,106.6 19.5,106.6 34.9,109.9 50.4,75.4 65.9,65.6 81.3,109.9 96.8,93.5 112.3,70.5 127.7,85.3 143.2,45.9 158.7,8.1 174.1,21.3 189.6,32.7 205.1,50.8 220.5,70.5 236.0,93.5 236.0,95.1" clip-path="url(#d2)"/>
+<line class="base" x1="0" x2="240" y1="95.1" y2="95.1"/>
+<polyline class="ln up" points="4.0,106.6 19.5,106.6 34.9,109.9 50.4,75.4 65.9,65.6 81.3,109.9 96.8,93.5 112.3,70.5 127.7,85.3 143.2,45.9 158.7,8.1 174.1,21.3 189.6,32.7 205.1,50.8 220.5,70.5 236.0,93.5"/>
+<circle class="dot up" cx="158.7" cy="8.1" r="3.2"><title>고가 10/19</title></circle>
+<circle class="dot dn" cx="34.9" cy="109.9" r="3.2"><title>저가 10/6</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="하이브">하이브</span><span class="pct up hl">12.56</span></div><div class="row"><span class="nm" title="에스엠">에스엠</span><span class="pct up">0.61</span></div><div class="row"><span class="nm" title="JYP Ent.">JYP Ent.</span><span class="pct up hl">11.69</span></div><div class="row"><span class="nm" title="CJ ENM">CJ ENM</span><span class="pct up hl">10.68</span></div><div class="row"><span class="nm" title="와이지엔터테인먼트">와이지엔터테인먼트</span><span class="pct dn">-5.67</span></div></div></div>
+<div class="pat">등락 반복 · 저가권 마감 · 고저폭 10.2%p</div>
+</div><div class="card">
+<div class="head"><span class="title">게임</span><span class="etf">TIGER K게임</span><span class="pct dn big">-1.61</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="게임 흐름">
+<defs><clipPath id="u3"><rect x="0" y="0" width="240" height="82.0"/></clipPath>
+<clipPath id="d3"><rect x="0" y="82.0" width="240" height="36.0"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,82.0 4.0,8.1 19.5,9.8 34.9,32.7 50.4,9.8 65.9,57.4 81.3,80.3 96.8,93.5 112.3,90.2 127.7,108.2 143.2,72.1 158.7,55.7 174.1,70.5 189.6,78.7 205.1,65.6 220.5,88.5 236.0,109.9 236.0,82.0" clip-path="url(#u3)"/>
+<polygon class="fill-dn" points="4.0,82.0 4.0,8.1 19.5,9.8 34.9,32.7 50.4,9.8 65.9,57.4 81.3,80.3 96.8,93.5 112.3,90.2 127.7,108.2 143.2,72.1 158.7,55.7 174.1,70.5 189.6,78.7 205.1,65.6 220.5,88.5 236.0,109.9 236.0,82.0" clip-path="url(#d3)"/>
+<line class="base" x1="0" x2="240" y1="82.0" y2="82.0"/>
+<polyline class="ln dn" points="4.0,8.1 19.5,9.8 34.9,32.7 50.4,9.8 65.9,57.4 81.3,80.3 96.8,93.5 112.3,90.2 127.7,108.2 143.2,72.1 158.7,55.7 174.1,70.5 189.6,78.7 205.1,65.6 220.5,88.5 236.0,109.9"/>
+<circle class="dot up" cx="4.0" cy="8.1" r="3.2"><title>고가 10/1</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="크래프톤">크래프톤</span><span class="pct dn">-6.91</span></div><div class="row"><span class="nm" title="NC">NC</span><span class="pct dn">-5.84</span></div><div class="row"><span class="nm" title="넷마블">넷마블</span><span class="pct dn">-2.18</span></div><div class="row"><span class="nm" title="펄어비스">펄어비스</span><span class="pct up">6.51</span></div><div class="row"><span class="nm" title="시프트업">시프트업</span><span class="pct dn">-3.41</span></div></div></div>
+<div class="pat">10/1 고점 후 밀림 · 저가권 마감 · 고저폭 5.9%p</div>
+</div><div class="card">
+<div class="head"><span class="title">헬스케어</span><span class="etf">KODEX 헬스케어</span><span class="pct dn big">-3.54</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="헬스케어 흐름">
+<defs><clipPath id="u4"><rect x="0" y="0" width="240" height="45.8"/></clipPath>
+<clipPath id="d4"><rect x="0" y="45.8" width="240" height="72.2"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,45.8 4.0,11.8 19.5,25.4 34.9,8.1 50.4,12.8 65.9,46.6 81.3,74.0 96.8,93.4 112.3,100.4 127.7,109.9 143.2,61.5 158.7,25.9 174.1,46.1 189.6,34.3 205.1,62.8 220.5,57.0 236.0,75.1 236.0,45.8" clip-path="url(#u4)"/>
+<polygon class="fill-dn" points="4.0,45.8 4.0,11.8 19.5,25.4 34.9,8.1 50.4,12.8 65.9,46.6 81.3,74.0 96.8,93.4 112.3,100.4 127.7,109.9 143.2,61.5 158.7,25.9 174.1,46.1 189.6,34.3 205.1,62.8 220.5,57.0 236.0,75.1 236.0,45.8" clip-path="url(#d4)"/>
+<line class="base" x1="0" x2="240" y1="45.8" y2="45.8"/>
+<polyline class="ln dn" points="4.0,11.8 19.5,25.4 34.9,8.1 50.4,12.8 65.9,46.6 81.3,74.0 96.8,93.4 112.3,100.4 127.7,109.9 143.2,61.5 158.7,25.9 174.1,46.1 189.6,34.3 205.1,62.8 220.5,57.0 236.0,75.1"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="127.7" cy="109.9" r="3.2"><title>저가 10/15</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="삼성바이오로직스">삼성바이오로직스</span><span class="pct up">4.75</span></div><div class="row"><span class="nm" title="셀트리온">셀트리온</span><span class="pct up">6.86</span></div><div class="row"><span class="nm" title="알테오젠">알테오젠</span><span class="pct dn hl">-14.68</span></div><div class="row"><span class="nm" title="유한양행">유한양행</span><span class="pct up hl">12.10</span></div><div class="row"><span class="nm" title="SK바이오팜">SK바이오팜</span><span class="pct up">2.28</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 중간 마감 · 고저폭 12.3%p</div>
+</div><div class="card">
+<div class="head"><span class="title">인터넷·SW</span><span class="etf">TIGER 소프트웨어</span><span class="pct dn big">-6.93</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="인터넷·SW 흐름">
+<defs><clipPath id="u5"><rect x="0" y="0" width="240" height="23.9"/></clipPath>
+<clipPath id="d5"><rect x="0" y="23.9" width="240" height="94.1"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,23.9 4.0,12.9 19.5,8.1 34.9,8.1 50.4,30.1 65.9,64.5 81.3,83.7 96.8,89.2 112.3,74.1 127.7,109.9 143.2,83.7 158.7,56.9 174.1,75.5 189.6,76.9 205.1,81.7 220.5,94.1 236.0,98.2 236.0,23.9" clip-path="url(#u5)"/>
+<polygon class="fill-dn" points="4.0,23.9 4.0,12.9 19.5,8.1 34.9,8.1 50.4,30.1 65.9,64.5 81.3,83.7 96.8,89.2 112.3,74.1 127.7,109.9 143.2,83.7 158.7,56.9 174.1,75.5 189.6,76.9 205.1,81.7 220.5,94.1 236.0,98.2 236.0,23.9" clip-path="url(#d5)"/>
+<line class="base" x1="0" x2="240" y1="23.9" y2="23.9"/>
+<polyline class="ln dn" points="4.0,12.9 19.5,8.1 34.9,8.1 50.4,30.1 65.9,64.5 81.3,83.7 96.8,89.2 112.3,74.1 127.7,109.9 143.2,83.7 158.7,56.9 174.1,75.5 189.6,76.9 205.1,81.7 220.5,94.1 236.0,98.2"/>
+<circle class="dot up" cx="19.5" cy="8.1" r="3.2"><title>고가 10/2</title></circle>
+<circle class="dot dn" cx="127.7" cy="109.9" r="3.2"><title>저가 10/15</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="NAVER">NAVER</span><span class="pct dn">-9.87</span></div><div class="row"><span class="nm" title="삼성에스디에스">삼성에스디에스</span><span class="pct dn">-1.60</span></div><div class="row"><span class="nm" title="카카오">카카오</span><span class="pct dn hl">-12.05</span></div><div class="row"><span class="nm" title="현대오토에버">현대오토에버</span><span class="pct dn hl">-16.09</span></div><div class="row"><span class="nm" title="크래프톤">크래프톤</span><span class="pct dn">-6.91</span></div></div></div>
+<div class="pat">10/2 고점 후 밀림 · 저가권 마감 · 고저폭 9.5%p</div>
+</div><div class="card">
+<div class="head"><span class="title">필수소비재</span><span class="etf">KODEX 필수소비재</span><span class="pct dn big">-7.07</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="필수소비재 흐름">
+<defs><clipPath id="u6"><rect x="0" y="0" width="240" height="29.7"/></clipPath>
+<clipPath id="d6"><rect x="0" y="29.7" width="240" height="88.3"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,29.7 4.0,34.5 19.5,38.1 34.9,34.5 50.4,8.1 65.9,28.5 81.3,43.4 96.8,91.9 112.3,90.1 127.7,71.6 143.2,36.9 158.7,28.5 174.1,46.4 189.6,37.5 205.1,61.4 220.5,88.3 236.0,109.9 236.0,29.7" clip-path="url(#u6)"/>
+<polygon class="fill-dn" points="4.0,29.7 4.0,34.5 19.5,38.1 34.9,34.5 50.4,8.1 65.9,28.5 81.3,43.4 96.8,91.9 112.3,90.1 127.7,71.6 143.2,36.9 158.7,28.5 174.1,46.4 189.6,37.5 205.1,61.4 220.5,88.3 236.0,109.9 236.0,29.7" clip-path="url(#d6)"/>
+<line class="base" x1="0" x2="240" y1="29.7" y2="29.7"/>
+<polyline class="ln dn" points="4.0,34.5 19.5,38.1 34.9,34.5 50.4,8.1 65.9,28.5 81.3,43.4 96.8,91.9 112.3,90.1 127.7,71.6 143.2,36.9 158.7,28.5 174.1,46.4 189.6,37.5 205.1,61.4 220.5,88.3 236.0,109.9"/>
+<circle class="dot up" cx="50.4" cy="8.1" r="3.2"><title>고가 10/7</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="KT&amp;G">KT&amp;G</span><span class="pct up">7.54</span></div><div class="row"><span class="nm" title="에이피알">에이피알</span><span class="pct dn hl">-23.42</span></div><div class="row"><span class="nm" title="삼양식품">삼양식품</span><span class="pct dn">-7.43</span></div><div class="row"><span class="nm" title="아모레퍼시픽">아모레퍼시픽</span><span class="pct dn">-9.16</span></div><div class="row"><span class="nm" title="오리온">오리온</span><span class="pct up">5.05</span></div></div></div>
+<div class="pat">10/7 고점 후 밀림 · 저가권 마감 · 고저폭 9.0%p</div>
+</div><div class="card">
+<div class="head"><span class="title">2차전지</span><span class="etf">KODEX 2차전지산업</span><span class="pct dn big">-7.83</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="2차전지 흐름">
+<defs><clipPath id="u7"><rect x="0" y="0" width="240" height="68.1"/></clipPath>
+<clipPath id="d7"><rect x="0" y="68.1" width="240" height="49.9"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,68.1 4.0,57.1 19.5,41.7 34.9,8.1 50.4,18.0 65.9,11.1 81.3,39.1 96.8,30.8 112.3,14.3 127.7,49.7 143.2,53.6 158.7,8.7 174.1,44.0 189.6,42.5 205.1,75.9 220.5,98.5 236.0,109.9 236.0,68.1" clip-path="url(#u7)"/>
+<polygon class="fill-dn" points="4.0,68.1 4.0,57.1 19.5,41.7 34.9,8.1 50.4,18.0 65.9,11.1 81.3,39.1 96.8,30.8 112.3,14.3 127.7,49.7 143.2,53.6 158.7,8.7 174.1,44.0 189.6,42.5 205.1,75.9 220.5,98.5 236.0,109.9 236.0,68.1" clip-path="url(#d7)"/>
+<line class="base" x1="0" x2="240" y1="68.1" y2="68.1"/>
+<polyline class="ln dn" points="4.0,57.1 19.5,41.7 34.9,8.1 50.4,18.0 65.9,11.1 81.3,39.1 96.8,30.8 112.3,14.3 127.7,49.7 143.2,53.6 158.7,8.7 174.1,44.0 189.6,42.5 205.1,75.9 220.5,98.5 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="LG에너지솔루션">LG에너지솔루션</span><span class="pct up">5.91</span></div><div class="row"><span class="nm" title="삼성SDI">삼성SDI</span><span class="pct dn">-5.65</span></div><div class="row"><span class="nm" title="SK이노베이션">SK이노베이션</span><span class="pct dn">-8.78</span></div><div class="row"><span class="nm" title="POSCO홀딩스">POSCO홀딩스</span><span class="pct dn hl">-11.91</span></div><div class="row"><span class="nm" title="LG화학">LG화학</span><span class="pct dn hl">-10.56</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 19.1%p</div>
+</div><div class="card">
+<div class="head"><span class="title">운송</span><span class="etf">KODEX 운송</span><span class="pct dn big">-8.03</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="운송 흐름">
+<defs><clipPath id="u8"><rect x="0" y="0" width="240" height="37.3"/></clipPath>
+<clipPath id="d8"><rect x="0" y="37.3" width="240" height="80.7"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,37.3 4.0,33.9 19.5,29.2 34.9,31.9 50.4,34.6 65.9,48.1 81.3,34.6 96.8,38.0 112.3,8.1 127.7,33.2 143.2,46.8 158.7,35.3 174.1,63.1 189.6,59.7 205.1,80.7 220.5,93.6 236.0,109.9 236.0,37.3" clip-path="url(#u8)"/>
+<polygon class="fill-dn" points="4.0,37.3 4.0,33.9 19.5,29.2 34.9,31.9 50.4,34.6 65.9,48.1 81.3,34.6 96.8,38.0 112.3,8.1 127.7,33.2 143.2,46.8 158.7,35.3 174.1,63.1 189.6,59.7 205.1,80.7 220.5,93.6 236.0,109.9 236.0,37.3" clip-path="url(#d8)"/>
+<line class="base" x1="0" x2="240" y1="37.3" y2="37.3"/>
+<polyline class="ln dn" points="4.0,33.9 19.5,29.2 34.9,31.9 50.4,34.6 65.9,48.1 81.3,34.6 96.8,38.0 112.3,8.1 127.7,33.2 143.2,46.8 158.7,35.3 174.1,63.1 189.6,59.7 205.1,80.7 220.5,93.6 236.0,109.9"/>
+<circle class="dot up" cx="112.3" cy="8.1" r="3.2"><title>고가 10/14</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="HMM">HMM</span><span class="pct up">7.42</span></div><div class="row"><span class="nm" title="현대글로비스">현대글로비스</span><span class="pct dn hl">-11.02</span></div><div class="row"><span class="nm" title="대한항공">대한항공</span><span class="pct dn hl">-21.22</span></div><div class="row"><span class="nm" title="팬오션">팬오션</span><span class="pct up">4.00</span></div><div class="row"><span class="nm" title="롯데렌탈">롯데렌탈</span><span class="pct dn">-1.59</span></div></div></div>
+<div class="pat">10/14 고점 후 밀림 · 저가권 마감 · 고저폭 11.3%p</div>
+</div><div class="card">
+<div class="head"><span class="title">자동차</span><span class="etf">KODEX 자동차</span><span class="pct dn big">-8.75</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="자동차 흐름">
+<defs><clipPath id="u9"><rect x="0" y="0" width="240" height="32.3"/></clipPath>
+<clipPath id="d9"><rect x="0" y="32.3" width="240" height="85.7"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,32.3 4.0,15.6 19.5,10.4 34.9,8.1 50.4,25.5 65.9,36.9 81.3,55.5 96.8,66.4 112.3,54.5 127.7,90.0 143.2,62.3 158.7,28.7 174.1,63.9 189.6,69.0 205.1,79.5 220.5,97.4 236.0,109.9 236.0,32.3" clip-path="url(#u9)"/>
+<polygon class="fill-dn" points="4.0,32.3 4.0,15.6 19.5,10.4 34.9,8.1 50.4,25.5 65.9,36.9 81.3,55.5 96.8,66.4 112.3,54.5 127.7,90.0 143.2,62.3 158.7,28.7 174.1,63.9 189.6,69.0 205.1,79.5 220.5,97.4 236.0,109.9 236.0,32.3" clip-path="url(#d9)"/>
+<line class="base" x1="0" x2="240" y1="32.3" y2="32.3"/>
+<polyline class="ln dn" points="4.0,15.6 19.5,10.4 34.9,8.1 50.4,25.5 65.9,36.9 81.3,55.5 96.8,66.4 112.3,54.5 127.7,90.0 143.2,62.3 158.7,28.7 174.1,63.9 189.6,69.0 205.1,79.5 220.5,97.4 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="현대차">현대차</span><span class="pct dn hl">-16.71</span></div><div class="row"><span class="nm" title="기아">기아</span><span class="pct dn">-6.95</span></div><div class="row"><span class="nm" title="현대모비스">현대모비스</span><span class="pct dn hl">-14.82</span></div><div class="row"><span class="nm" title="한국타이어앤테크놀로지">한국타이어앤테크놀로지</span><span class="pct dn">-0.84</span></div><div class="row"><span class="nm" title="한온시스템">한온시스템</span><span class="pct up">2.27</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 11.5%p</div>
+</div><div class="card">
+<div class="head"><span class="title">보험</span><span class="etf">KODEX 보험</span><span class="pct dn big">-9.10</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="보험 흐름">
+<defs><clipPath id="u10"><rect x="0" y="0" width="240" height="11.1"/></clipPath>
+<clipPath id="d10"><rect x="0" y="11.1" width="240" height="106.9"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,11.1 4.0,21.8 19.5,16.4 34.9,19.1 50.4,8.1 65.9,27.7 81.3,19.6 96.8,25.5 112.3,81.5 127.7,95.9 143.2,92.2 158.7,57.4 174.1,76.1 189.6,87.1 205.1,90.3 220.5,94.3 236.0,109.9 236.0,11.1" clip-path="url(#u10)"/>
+<polygon class="fill-dn" points="4.0,11.1 4.0,21.8 19.5,16.4 34.9,19.1 50.4,8.1 65.9,27.7 81.3,19.6 96.8,25.5 112.3,81.5 127.7,95.9 143.2,92.2 158.7,57.4 174.1,76.1 189.6,87.1 205.1,90.3 220.5,94.3 236.0,109.9 236.0,11.1" clip-path="url(#d10)"/>
+<line class="base" x1="0" x2="240" y1="11.1" y2="11.1"/>
+<polyline class="ln dn" points="4.0,21.8 19.5,16.4 34.9,19.1 50.4,8.1 65.9,27.7 81.3,19.6 96.8,25.5 112.3,81.5 127.7,95.9 143.2,92.2 158.7,57.4 174.1,76.1 189.6,87.1 205.1,90.3 220.5,94.3 236.0,109.9"/>
+<circle class="dot up" cx="50.4" cy="8.1" r="3.2"><title>고가 10/7</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="삼성생명">삼성생명</span><span class="pct dn hl">-12.01</span></div><div class="row"><span class="nm" title="삼성화재">삼성화재</span><span class="pct dn">-5.36</span></div><div class="row"><span class="nm" title="DB손해보험">DB손해보험</span><span class="pct dn">-2.21</span></div><div class="row"><span class="nm" title="현대해상">현대해상</span><span class="pct dn hl">-13.15</span></div><div class="row"><span class="nm" title="한화생명">한화생명</span><span class="pct dn hl">-25.93</span></div></div></div>
+<div class="pat">10/7 고점 후 밀림 · 저가권 마감 · 고저폭 9.4%p</div>
+</div><div class="card">
+<div class="head"><span class="title">코스닥 바이오</span><span class="etf">TIGER 코스닥150바이오테크</span><span class="pct dn big">-9.64</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="코스닥 바이오 흐름">
+<defs><clipPath id="u11"><rect x="0" y="0" width="240" height="49.5"/></clipPath>
+<clipPath id="d11"><rect x="0" y="49.5" width="240" height="68.5"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,49.5 4.0,18.2 19.5,32.2 34.9,8.1 50.4,13.2 65.9,43.7 81.3,70.7 96.8,87.7 112.3,89.4 127.7,109.9 143.2,73.5 158.7,52.6 174.1,72.3 189.6,61.0 205.1,76.2 220.5,86.3 236.0,101.0 236.0,49.5" clip-path="url(#u11)"/>
+<polygon class="fill-dn" points="4.0,49.5 4.0,18.2 19.5,32.2 34.9,8.1 50.4,13.2 65.9,43.7 81.3,70.7 96.8,87.7 112.3,89.4 127.7,109.9 143.2,73.5 158.7,52.6 174.1,72.3 189.6,61.0 205.1,76.2 220.5,86.3 236.0,101.0 236.0,49.5" clip-path="url(#d11)"/>
+<line class="base" x1="0" x2="240" y1="49.5" y2="49.5"/>
+<polyline class="ln dn" points="4.0,18.2 19.5,32.2 34.9,8.1 50.4,13.2 65.9,43.7 81.3,70.7 96.8,87.7 112.3,89.4 127.7,109.9 143.2,73.5 158.7,52.6 174.1,72.3 189.6,61.0 205.1,76.2 220.5,86.3 236.0,101.0"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="127.7" cy="109.9" r="3.2"><title>저가 10/15</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="알테오젠">알테오젠</span><span class="pct dn hl">-14.68</span></div><div class="row"><span class="nm" title="HLB">HLB</span><span class="pct dn">-4.84</span></div><div class="row"><span class="nm" title="삼천당제약">삼천당제약</span><span class="pct up">8.06</span></div><div class="row"><span class="nm" title="리가켐바이오">리가켐바이오</span><span class="pct dn hl">-18.95</span></div><div class="row"><span class="nm" title="파마리서치">파마리서치</span><span class="pct dn hl">-25.69</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 19.1%p</div>
+</div><div class="card">
+<div class="head"><span class="title">건설</span><span class="etf">KODEX 건설</span><span class="pct dn hl big">-10.68</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="건설 흐름">
+<defs><clipPath id="u12"><rect x="0" y="0" width="240" height="8.1"/></clipPath>
+<clipPath id="d12"><rect x="0" y="8.1" width="240" height="109.9"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,8.1 4.0,12.6 19.5,15.7 34.9,17.0 50.4,21.4 65.9,41.3 81.3,67.8 96.8,75.4 112.3,71.8 127.7,109.9 143.2,98.8 158.7,87.7 174.1,109.9 189.6,93.9 205.1,77.1 220.5,66.1 236.0,72.3 236.0,8.1" clip-path="url(#u12)"/>
+<polygon class="fill-dn" points="4.0,8.1 4.0,12.6 19.5,15.7 34.9,17.0 50.4,21.4 65.9,41.3 81.3,67.8 96.8,75.4 112.3,71.8 127.7,109.9 143.2,98.8 158.7,87.7 174.1,109.9 189.6,93.9 205.1,77.1 220.5,66.1 236.0,72.3 236.0,8.1" clip-path="url(#d12)"/>
+<line class="base" x1="0" x2="240" y1="8.1" y2="8.1"/>
+<polyline class="ln dn" points="4.0,12.6 19.5,15.7 34.9,17.0 50.4,21.4 65.9,41.3 81.3,67.8 96.8,75.4 112.3,71.8 127.7,109.9 143.2,98.8 158.7,87.7 174.1,109.9 189.6,93.9 205.1,77.1 220.5,66.1 236.0,72.3"/>
+<circle class="dot up" cx="4.0" cy="12.6" r="3.2"><title>고가 10/1</title></circle>
+<circle class="dot dn" cx="127.7" cy="109.9" r="3.2"><title>저가 10/15</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="삼성E&amp;A">삼성E&amp;A</span><span class="pct up hl">25.47</span></div><div class="row"><span class="nm" title="현대건설">현대건설</span><span class="pct dn hl">-23.96</span></div><div class="row"><span class="nm" title="대우건설">대우건설</span><span class="pct dn hl">-19.74</span></div><div class="row"><span class="nm" title="한전기술">한전기술</span><span class="pct dn hl">-26.87</span></div><div class="row"><span class="nm" title="GS건설">GS건설</span><span class="pct dn hl">-17.89</span></div></div></div>
+<div class="pat">10/1 고점 후 밀림 · 중간 마감 · 고저폭 16.2%p</div>
+</div><div class="card">
+<div class="head"><span class="title">경기소비재</span><span class="etf">KODEX 경기소비재</span><span class="pct dn hl big">-12.23</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="경기소비재 흐름">
+<defs><clipPath id="u13"><rect x="0" y="0" width="240" height="17.6"/></clipPath>
+<clipPath id="d13"><rect x="0" y="17.6" width="240" height="100.4"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,17.6 4.0,22.8 19.5,18.4 34.9,8.1 50.4,15.6 65.9,31.5 81.3,47.4 96.8,60.0 112.3,67.2 127.7,76.5 143.2,73.1 158.7,62.9 174.1,83.7 189.6,83.7 205.1,91.6 220.5,99.6 236.0,109.9 236.0,17.6" clip-path="url(#u13)"/>
+<polygon class="fill-dn" points="4.0,17.6 4.0,22.8 19.5,18.4 34.9,8.1 50.4,15.6 65.9,31.5 81.3,47.4 96.8,60.0 112.3,67.2 127.7,76.5 143.2,73.1 158.7,62.9 174.1,83.7 189.6,83.7 205.1,91.6 220.5,99.6 236.0,109.9 236.0,17.6" clip-path="url(#d13)"/>
+<line class="base" x1="0" x2="240" y1="17.6" y2="17.6"/>
+<polyline class="ln dn" points="4.0,22.8 19.5,18.4 34.9,8.1 50.4,15.6 65.9,31.5 81.3,47.4 96.8,60.0 112.3,67.2 127.7,76.5 143.2,73.1 158.7,62.9 174.1,83.7 189.6,83.7 205.1,91.6 220.5,99.6 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="LG전자">LG전자</span><span class="pct dn hl">-26.70</span></div><div class="row"><span class="nm" title="한진칼">한진칼</span><span class="pct dn">-9.08</span></div><div class="row"><span class="nm" title="코웨이">코웨이</span><span class="pct up">5.13</span></div><div class="row"><span class="nm" title="영원무역">영원무역</span><span class="pct dn">-2.31</span></div><div class="row"><span class="nm" title="강원랜드">강원랜드</span><span class="pct dn">-2.66</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 13.5%p</div>
+</div><div class="card">
+<div class="head"><span class="title">은행</span><span class="etf">KODEX 은행</span><span class="pct dn hl big">-14.45</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="은행 흐름">
+<defs><clipPath id="u14"><rect x="0" y="0" width="240" height="8.1"/></clipPath>
+<clipPath id="d14"><rect x="0" y="8.1" width="240" height="109.9"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,8.1 4.0,22.4 19.5,20.0 34.9,21.5 50.4,21.3 65.9,40.0 81.3,43.3 96.8,44.4 112.3,63.3 127.7,64.4 143.2,60.4 158.7,53.2 174.1,60.9 189.6,65.3 205.1,71.4 220.5,88.8 236.0,109.9 236.0,8.1" clip-path="url(#u14)"/>
+<polygon class="fill-dn" points="4.0,8.1 4.0,22.4 19.5,20.0 34.9,21.5 50.4,21.3 65.9,40.0 81.3,43.3 96.8,44.4 112.3,63.3 127.7,64.4 143.2,60.4 158.7,53.2 174.1,60.9 189.6,65.3 205.1,71.4 220.5,88.8 236.0,109.9 236.0,8.1" clip-path="url(#d14)"/>
+<line class="base" x1="0" x2="240" y1="8.1" y2="8.1"/>
+<polyline class="ln dn" points="4.0,22.4 19.5,20.0 34.9,21.5 50.4,21.3 65.9,40.0 81.3,43.3 96.8,44.4 112.3,63.3 127.7,64.4 143.2,60.4 158.7,53.2 174.1,60.9 189.6,65.3 205.1,71.4 220.5,88.8 236.0,109.9"/>
+<circle class="dot up" cx="19.5" cy="20.0" r="3.2"><title>고가 10/2</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="KB금융">KB금융</span><span class="pct dn hl">-12.72</span></div><div class="row"><span class="nm" title="신한지주">신한지주</span><span class="pct dn hl">-18.87</span></div><div class="row"><span class="nm" title="하나금융지주">하나금융지주</span><span class="pct dn hl">-13.31</span></div><div class="row"><span class="nm" title="우리금융지주">우리금융지주</span><span class="pct dn hl">-15.78</span></div><div class="row"><span class="nm" title="기업은행">기업은행</span><span class="pct dn">-5.09</span></div></div></div>
+<div class="pat">10/2 고점 후 밀림 · 저가권 마감 · 고저폭 12.8%p</div>
+</div><div class="card">
+<div class="head"><span class="title">철강</span><span class="etf">KODEX 철강</span><span class="pct dn hl big">-16.37</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="철강 흐름">
+<defs><clipPath id="u15"><rect x="0" y="0" width="240" height="28.7"/></clipPath>
+<clipPath id="d15"><rect x="0" y="28.7" width="240" height="89.3"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,28.7 4.0,23.8 19.5,14.9 34.9,8.1 50.4,36.3 65.9,33.9 81.3,46.9 96.8,52.6 112.3,47.7 127.7,75.9 143.2,66.4 158.7,41.7 174.1,61.9 189.6,62.3 205.1,78.8 220.5,92.6 236.0,109.9 236.0,28.7" clip-path="url(#u15)"/>
+<polygon class="fill-dn" points="4.0,28.7 4.0,23.8 19.5,14.9 34.9,8.1 50.4,36.3 65.9,33.9 81.3,46.9 96.8,52.6 112.3,47.7 127.7,75.9 143.2,66.4 158.7,41.7 174.1,61.9 189.6,62.3 205.1,78.8 220.5,92.6 236.0,109.9 236.0,28.7" clip-path="url(#d15)"/>
+<line class="base" x1="0" x2="240" y1="28.7" y2="28.7"/>
+<polyline class="ln dn" points="4.0,23.8 19.5,14.9 34.9,8.1 50.4,36.3 65.9,33.9 81.3,46.9 96.8,52.6 112.3,47.7 127.7,75.9 143.2,66.4 158.7,41.7 174.1,61.9 189.6,62.3 205.1,78.8 220.5,92.6 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="POSCO홀딩스">POSCO홀딩스</span><span class="pct dn hl">-11.91</span></div><div class="row"><span class="nm" title="고려아연">고려아연</span><span class="pct dn hl">-20.67</span></div><div class="row"><span class="nm" title="현대제철">현대제철</span><span class="pct dn hl">-13.32</span></div><div class="row"><span class="nm" title="풍산">풍산</span><span class="pct dn hl">-26.44</span></div><div class="row"><span class="nm" title="세아베스틸지주">세아베스틸지주</span><span class="pct dn hl">-30.20</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 20.5%p</div>
+</div><div class="card">
+<div class="head"><span class="title">로봇</span><span class="etf">KODEX 로봇액티브</span><span class="pct dn hl big">-16.52</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="로봇 흐름">
+<defs><clipPath id="u16"><rect x="0" y="0" width="240" height="34.2"/></clipPath>
+<clipPath id="d16"><rect x="0" y="34.2" width="240" height="83.8"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,34.2 4.0,23.7 19.5,16.1 34.9,8.1 50.4,25.8 65.9,36.4 81.3,66.5 96.8,79.7 112.3,80.1 127.7,109.9 143.2,97.9 158.7,84.8 174.1,96.9 189.6,93.8 205.1,103.2 220.5,109.1 236.0,107.9 236.0,34.2" clip-path="url(#u16)"/>
+<polygon class="fill-dn" points="4.0,34.2 4.0,23.7 19.5,16.1 34.9,8.1 50.4,25.8 65.9,36.4 81.3,66.5 96.8,79.7 112.3,80.1 127.7,109.9 143.2,97.9 158.7,84.8 174.1,96.9 189.6,93.8 205.1,103.2 220.5,109.1 236.0,107.9 236.0,34.2" clip-path="url(#d16)"/>
+<line class="base" x1="0" x2="240" y1="34.2" y2="34.2"/>
+<polyline class="ln dn" points="4.0,23.7 19.5,16.1 34.9,8.1 50.4,25.8 65.9,36.4 81.3,66.5 96.8,79.7 112.3,80.1 127.7,109.9 143.2,97.9 158.7,84.8 174.1,96.9 189.6,93.8 205.1,103.2 220.5,109.1 236.0,107.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="127.7" cy="109.9" r="3.2"><title>저가 10/15</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="삼성전자">삼성전자</span><span class="pct dn hl">-20.78</span></div><div class="row"><span class="nm" title="현대모비스">현대모비스</span><span class="pct dn hl">-14.82</span></div><div class="row"><span class="nm" title="NAVER">NAVER</span><span class="pct dn">-9.87</span></div><div class="row"><span class="nm" title="LG전자">LG전자</span><span class="pct dn hl">-26.70</span></div><div class="row"><span class="nm" title="삼성에스디에스">삼성에스디에스</span><span class="pct dn">-1.60</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 22.8%p</div>
+</div><div class="card">
+<div class="head"><span class="title">증권</span><span class="etf">KODEX 증권</span><span class="pct dn hl big">-16.68</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="증권 흐름">
+<defs><clipPath id="u17"><rect x="0" y="0" width="240" height="20.0"/></clipPath>
+<clipPath id="d17"><rect x="0" y="20.0" width="240" height="98.0"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,20.0 4.0,8.1 19.5,8.8 34.9,14.1 50.4,23.1 65.9,38.0 81.3,55.3 96.8,67.2 112.3,73.8 127.7,104.5 143.2,83.6 158.7,73.9 174.1,91.3 189.6,85.2 205.1,97.2 220.5,103.0 236.0,109.9 236.0,20.0" clip-path="url(#u17)"/>
+<polygon class="fill-dn" points="4.0,20.0 4.0,8.1 19.5,8.8 34.9,14.1 50.4,23.1 65.9,38.0 81.3,55.3 96.8,67.2 112.3,73.8 127.7,104.5 143.2,83.6 158.7,73.9 174.1,91.3 189.6,85.2 205.1,97.2 220.5,103.0 236.0,109.9 236.0,20.0" clip-path="url(#d17)"/>
+<line class="base" x1="0" x2="240" y1="20.0" y2="20.0"/>
+<polyline class="ln dn" points="4.0,8.1 19.5,8.8 34.9,14.1 50.4,23.1 65.9,38.0 81.3,55.3 96.8,67.2 112.3,73.8 127.7,104.5 143.2,83.6 158.7,73.9 174.1,91.3 189.6,85.2 205.1,97.2 220.5,103.0 236.0,109.9"/>
+<circle class="dot up" cx="4.0" cy="8.1" r="3.2"><title>고가 10/1</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="미래에셋증권">미래에셋증권</span><span class="pct dn hl">-22.37</span></div><div class="row"><span class="nm" title="NH투자증권">NH투자증권</span><span class="pct dn hl">-12.86</span></div><div class="row"><span class="nm" title="한국금융지주">한국금융지주</span><span class="pct dn hl">-17.90</span></div><div class="row"><span class="nm" title="삼성증권">삼성증권</span><span class="pct dn hl">-13.98</span></div><div class="row"><span class="nm" title="키움증권">키움증권</span><span class="pct dn hl">-15.90</span></div></div></div>
+<div class="pat">10/1 고점 후 밀림 · 저가권 마감 · 고저폭 18.9%p</div>
+</div><div class="card">
+<div class="head"><span class="title">에너지화학</span><span class="etf">KODEX 에너지화학</span><span class="pct dn hl big">-18.06</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="에너지화학 흐름">
+<defs><clipPath id="u18"><rect x="0" y="0" width="240" height="31.5"/></clipPath>
+<clipPath id="d18"><rect x="0" y="31.5" width="240" height="86.5"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,31.5 4.0,34.2 19.5,16.6 34.9,8.1 50.4,13.4 65.9,14.7 81.3,36.1 96.8,39.1 112.3,32.1 127.7,59.4 143.2,57.5 158.7,37.3 174.1,69.8 189.6,64.8 205.1,85.6 220.5,97.7 236.0,109.9 236.0,31.5" clip-path="url(#u18)"/>
+<polygon class="fill-dn" points="4.0,31.5 4.0,34.2 19.5,16.6 34.9,8.1 50.4,13.4 65.9,14.7 81.3,36.1 96.8,39.1 112.3,32.1 127.7,59.4 143.2,57.5 158.7,37.3 174.1,69.8 189.6,64.8 205.1,85.6 220.5,97.7 236.0,109.9 236.0,31.5" clip-path="url(#d18)"/>
+<line class="base" x1="0" x2="240" y1="31.5" y2="31.5"/>
+<polyline class="ln dn" points="4.0,34.2 19.5,16.6 34.9,8.1 50.4,13.4 65.9,14.7 81.3,36.1 96.8,39.1 112.3,32.1 127.7,59.4 143.2,57.5 158.7,37.3 174.1,69.8 189.6,64.8 205.1,85.6 220.5,97.7 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="SK이노베이션">SK이노베이션</span><span class="pct dn">-8.78</span></div><div class="row"><span class="nm" title="LG화학">LG화학</span><span class="pct dn hl">-10.56</span></div><div class="row"><span class="nm" title="S-Oil">S-Oil</span><span class="pct dn hl">-21.48</span></div><div class="row"><span class="nm" title="HD현대">HD현대</span><span class="pct dn hl">-34.74</span></div><div class="row"><span class="nm" title="한화솔루션">한화솔루션</span><span class="pct dn hl">-20.09</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 23.4%p</div>
+</div><div class="card">
+<div class="head"><span class="title">코스닥 IT·반도체</span><span class="etf">TIGER 코스닥150IT</span><span class="pct dn hl big">-23.68</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="코스닥 IT·반도체 흐름">
+<defs><clipPath id="u19"><rect x="0" y="0" width="240" height="39.0"/></clipPath>
+<clipPath id="d19"><rect x="0" y="39.0" width="240" height="79.0"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,39.0 4.0,20.5 19.5,21.3 34.9,8.1 50.4,24.1 65.9,18.4 81.3,35.5 96.8,34.9 112.3,49.9 127.7,84.6 143.2,72.4 158.7,73.0 174.1,86.2 189.6,80.6 205.1,94.9 220.5,99.8 236.0,109.9 236.0,39.0" clip-path="url(#u19)"/>
+<polygon class="fill-dn" points="4.0,39.0 4.0,20.5 19.5,21.3 34.9,8.1 50.4,24.1 65.9,18.4 81.3,35.5 96.8,34.9 112.3,49.9 127.7,84.6 143.2,72.4 158.7,73.0 174.1,86.2 189.6,80.6 205.1,94.9 220.5,99.8 236.0,109.9 236.0,39.0" clip-path="url(#d19)"/>
+<line class="base" x1="0" x2="240" y1="39.0" y2="39.0"/>
+<polyline class="ln dn" points="4.0,20.5 19.5,21.3 34.9,8.1 50.4,24.1 65.9,18.4 81.3,35.5 96.8,34.9 112.3,49.9 127.7,84.6 143.2,72.4 158.7,73.0 174.1,86.2 189.6,80.6 205.1,94.9 220.5,99.8 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="주성엔지니어링">주성엔지니어링</span><span class="pct dn hl">-27.87</span></div><div class="row"><span class="nm" title="이오테크닉스">이오테크닉스</span><span class="pct dn hl">-26.41</span></div><div class="row"><span class="nm" title="리노공업">리노공업</span><span class="pct dn hl">-19.95</span></div><div class="row"><span class="nm" title="원익IPS">원익IPS</span><span class="pct dn hl">-31.97</span></div><div class="row"><span class="nm" title="심텍">심텍</span><span class="pct dn hl">-29.52</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 34.0%p</div>
+</div><div class="card">
+<div class="head"><span class="title">IT</span><span class="etf">TIGER 200 IT</span><span class="pct dn hl big">-24.47</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="IT 흐름">
+<defs><clipPath id="u20"><rect x="0" y="0" width="240" height="25.6"/></clipPath>
+<clipPath id="d20"><rect x="0" y="25.6" width="240" height="92.4"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,25.6 4.0,17.6 19.5,15.2 34.9,8.1 50.4,20.5 65.9,31.7 81.3,47.8 96.8,74.3 112.3,73.6 127.7,106.1 143.2,100.9 158.7,98.4 174.1,108.8 189.6,100.0 205.1,109.7 220.5,107.5 236.0,109.9 236.0,25.6" clip-path="url(#u20)"/>
+<polygon class="fill-dn" points="4.0,25.6 4.0,17.6 19.5,15.2 34.9,8.1 50.4,20.5 65.9,31.7 81.3,47.8 96.8,74.3 112.3,73.6 127.7,106.1 143.2,100.9 158.7,98.4 174.1,108.8 189.6,100.0 205.1,109.7 220.5,107.5 236.0,109.9 236.0,25.6" clip-path="url(#d20)"/>
+<line class="base" x1="0" x2="240" y1="25.6" y2="25.6"/>
+<polyline class="ln dn" points="4.0,17.6 19.5,15.2 34.9,8.1 50.4,20.5 65.9,31.7 81.3,47.8 96.8,74.3 112.3,73.6 127.7,106.1 143.2,100.9 158.7,98.4 174.1,108.8 189.6,100.0 205.1,109.7 220.5,107.5 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="삼성전자">삼성전자</span><span class="pct dn hl">-20.78</span></div><div class="row"><span class="nm" title="SK하이닉스">SK하이닉스</span><span class="pct dn hl">-27.65</span></div><div class="row"><span class="nm" title="SK스퀘어">SK스퀘어</span><span class="pct dn hl">-31.45</span></div><div class="row"><span class="nm" title="삼성전기">삼성전기</span><span class="pct dn hl">-26.16</span></div><div class="row"><span class="nm" title="삼성SDI">삼성SDI</span><span class="pct dn">-5.65</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 29.5%p</div>
+</div><div class="card">
+<div class="head"><span class="title">방산</span><span class="etf">PLUS K방산</span><span class="pct dn hl big">-27.27</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="방산 흐름">
+<defs><clipPath id="u21"><rect x="0" y="0" width="240" height="25.0"/></clipPath>
+<clipPath id="d21"><rect x="0" y="25.0" width="240" height="93.0"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,25.0 4.0,19.1 19.5,8.1 34.9,18.8 50.4,35.4 65.9,47.5 81.3,60.0 96.8,65.3 112.3,63.8 127.7,76.6 143.2,65.3 158.7,56.0 174.1,84.7 189.6,84.1 205.1,90.5 220.5,99.7 236.0,109.9 236.0,25.0" clip-path="url(#u21)"/>
+<polygon class="fill-dn" points="4.0,25.0 4.0,19.1 19.5,8.1 34.9,18.8 50.4,35.4 65.9,47.5 81.3,60.0 96.8,65.3 112.3,63.8 127.7,76.6 143.2,65.3 158.7,56.0 174.1,84.7 189.6,84.1 205.1,90.5 220.5,99.7 236.0,109.9 236.0,25.0" clip-path="url(#d21)"/>
+<line class="base" x1="0" x2="240" y1="25.0" y2="25.0"/>
+<polyline class="ln dn" points="4.0,19.1 19.5,8.1 34.9,18.8 50.4,35.4 65.9,47.5 81.3,60.0 96.8,65.3 112.3,63.8 127.7,76.6 143.2,65.3 158.7,56.0 174.1,84.7 189.6,84.1 205.1,90.5 220.5,99.7 236.0,109.9"/>
+<circle class="dot up" cx="19.5" cy="8.1" r="3.2"><title>고가 10/2</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="한화에어로스페이스">한화에어로스페이스</span><span class="pct dn hl">-25.37</span></div><div class="row"><span class="nm" title="한화오션">한화오션</span><span class="pct dn hl">-32.99</span></div><div class="row"><span class="nm" title="한화시스템">한화시스템</span><span class="pct dn hl">-16.36</span></div><div class="row"><span class="nm" title="한국항공우주">한국항공우주</span><span class="pct dn hl">-23.44</span></div><div class="row"><span class="nm" title="LIG디펜스앤에어로스페이스">LIG디펜스앤에어로스페이스</span><span class="pct dn hl">-37.68</span></div></div></div>
+<div class="pat">10/2 고점 후 밀림 · 저가권 마감 · 고저폭 32.7%p</div>
+</div><div class="card">
+<div class="head"><span class="title">반도체</span><span class="etf">KODEX 반도체</span><span class="pct dn hl big">-27.76</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="반도체 흐름">
+<defs><clipPath id="u22"><rect x="0" y="0" width="240" height="25.9"/></clipPath>
+<clipPath id="d22"><rect x="0" y="25.9" width="240" height="92.1"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,25.9 4.0,11.0 19.5,13.0 34.9,8.1 50.4,21.6 65.9,18.5 81.3,34.0 96.8,45.7 112.3,58.1 127.7,90.3 143.2,82.0 158.7,82.0 174.1,93.9 189.6,86.1 205.1,98.8 220.5,100.3 236.0,109.9 236.0,25.9" clip-path="url(#u22)"/>
+<polygon class="fill-dn" points="4.0,25.9 4.0,11.0 19.5,13.0 34.9,8.1 50.4,21.6 65.9,18.5 81.3,34.0 96.8,45.7 112.3,58.1 127.7,90.3 143.2,82.0 158.7,82.0 174.1,93.9 189.6,86.1 205.1,98.8 220.5,100.3 236.0,109.9 236.0,25.9" clip-path="url(#d22)"/>
+<line class="base" x1="0" x2="240" y1="25.9" y2="25.9"/>
+<polyline class="ln dn" points="4.0,11.0 19.5,13.0 34.9,8.1 50.4,21.6 65.9,18.5 81.3,34.0 96.8,45.7 112.3,58.1 127.7,90.3 143.2,82.0 158.7,82.0 174.1,93.9 189.6,86.1 205.1,98.8 220.5,100.3 236.0,109.9"/>
+<circle class="dot up" cx="34.9" cy="8.1" r="3.2"><title>고가 10/6</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="삼성전자">삼성전자</span><span class="pct dn hl">-20.78</span></div><div class="row"><span class="nm" title="SK하이닉스">SK하이닉스</span><span class="pct dn hl">-27.65</span></div><div class="row"><span class="nm" title="한미반도체">한미반도체</span><span class="pct dn hl">-28.41</span></div><div class="row"><span class="nm" title="주성엔지니어링">주성엔지니어링</span><span class="pct dn hl">-27.87</span></div><div class="row"><span class="nm" title="이오테크닉스">이오테크닉스</span><span class="pct dn hl">-26.41</span></div></div></div>
+<div class="pat">10/6 고점 후 밀림 · 저가권 마감 · 고저폭 33.6%p</div>
+</div><div class="card">
+<div class="head"><span class="title">조선·중공업</span><span class="etf">TIGER 200 중공업</span><span class="pct dn hl big">-28.86</span></div>
+<div class="inner"><div class="chart"><svg class="spark" viewBox="0 0 240 130" role="img" aria-label="조선·중공업 흐름">
+<defs><clipPath id="u23"><rect x="0" y="0" width="240" height="11.2"/></clipPath>
+<clipPath id="d23"><rect x="0" y="11.2" width="240" height="106.8"/></clipPath></defs>
+<line class="tick" x1="4.0" x2="4.0" y1="0" y2="118"/><text class="tl" x="6.0" y="129">1일</text><line class="tick" x1="81.3" x2="81.3" y1="0" y2="118"/><text class="tl" x="83.3" y="129">12일</text><line class="tick" x1="158.7" x2="158.7" y1="0" y2="118"/><text class="tl" x="160.7" y="129">19일</text><line class="tick" x1="236.0" x2="236.0" y1="0" y2="118"/><text class="tl" x="234.0" y="129" text-anchor="end">26일</text>
+<polygon class="fill-up" points="4.0,11.2 4.0,8.1 19.5,10.2 34.9,9.5 50.4,22.3 65.9,33.3 81.3,53.4 96.8,59.2 112.3,59.1 127.7,83.6 143.2,76.4 158.7,71.0 174.1,89.0 189.6,85.4 205.1,92.6 220.5,101.1 236.0,109.9 236.0,11.2" clip-path="url(#u23)"/>
+<polygon class="fill-dn" points="4.0,11.2 4.0,8.1 19.5,10.2 34.9,9.5 50.4,22.3 65.9,33.3 81.3,53.4 96.8,59.2 112.3,59.1 127.7,83.6 143.2,76.4 158.7,71.0 174.1,89.0 189.6,85.4 205.1,92.6 220.5,101.1 236.0,109.9 236.0,11.2" clip-path="url(#d23)"/>
+<line class="base" x1="0" x2="240" y1="11.2" y2="11.2"/>
+<polyline class="ln dn" points="4.0,8.1 19.5,10.2 34.9,9.5 50.4,22.3 65.9,33.3 81.3,53.4 96.8,59.2 112.3,59.1 127.7,83.6 143.2,76.4 158.7,71.0 174.1,89.0 189.6,85.4 205.1,92.6 220.5,101.1 236.0,109.9"/>
+<circle class="dot up" cx="4.0" cy="8.1" r="3.2"><title>고가 10/1</title></circle>
+<circle class="dot dn" cx="236.0" cy="109.9" r="3.2"><title>저가 10/26</title></circle>
+</svg></div><div class="list"><div class="row"><span class="nm" title="두산에너빌리티">두산에너빌리티</span><span class="pct dn hl">-29.55</span></div><div class="row"><span class="nm" title="HD현대중공업">HD현대중공업</span><span class="pct dn hl">-33.37</span></div><div class="row"><span class="nm" title="효성중공업">효성중공업</span><span class="pct dn hl">-33.69</span></div><div class="row"><span class="nm" title="HD한국조선해양">HD한국조선해양</span><span class="pct dn hl">-26.19</span></div><div class="row"><span class="nm" title="한화오션">한화오션</span><span class="pct dn hl">-32.99</span></div></div></div>
+<div class="pat">10/1 고점 후 밀림 · 저가권 마감 · 고저폭 29.7%p</div>
+</div></div>
+<div class="foot">섹터 대표 ETF 기준 · 등락률은 전월 종가 대비 · 네이버증권 데이터 · 투자 권유가 아닌 참고용</div>
+</div></body></html>

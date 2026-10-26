@@ -1,0 +1,85 @@
+name: 섹터 브리핑
+
+on:
+  schedule:
+    - cron: "10 7 * * 1-5"   # 일간: 평일 16:10 KST
+    - cron: "40 7 * * 5"     # 주간: 금요일 16:40 KST
+    - cron: "0 0 1 * *"      # 월간: 매월 1일 09:00 KST (지난달)
+  workflow_dispatch:
+    inputs:
+      period:
+        description: "기간"
+        type: choice
+        options: [day, week, month]
+        default: day
+      asof:
+        description: "기준일 YYYYMMDD (비우면 최신)"
+        required: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: briefing
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      skipped: ${{ steps.run.outputs.skipped }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: 기간 결정
+        id: period
+        run: |
+          case "${{ github.event.schedule }}" in
+            "10 7 * * 1-5") echo "args=day" >> "$GITHUB_OUTPUT" ;;
+            "40 7 * * 5")   echo "args=week" >> "$GITHUB_OUTPUT" ;;
+            "0 0 1 * *")    echo "args=month --asof yesterday" >> "$GITHUB_OUTPUT" ;;
+            *)
+              args="${{ inputs.period }}"
+              if [ -n "${{ inputs.asof }}" ]; then args="$args --asof ${{ inputs.asof }}"; fi
+              echo "args=$args" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: 리포트 생성
+        id: run
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python briefing.py ${{ steps.period.outputs.args }}
+
+      - name: 리포트 커밋
+        if: steps.run.outputs.skipped != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports
+          git diff --cached --quiet || git commit -m "리포트: ${{ steps.period.outputs.args }} ${{ steps.run.outputs.key }}"
+          git pull --rebase
+          git push
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.run.outputs.skipped != 'true'
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.skipped != 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
