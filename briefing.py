@@ -57,7 +57,11 @@ def main():
             return
 
     stem = os.path.join(BASE, "reports", f"{a.period}_{info['KEY']}")
-    commentary.write(stem + ".json", stem + ".txt", stem + "_commentary.html")
+    cpath = stem + "_commentary.html"
+    if os.path.exists(cpath) and not os.environ.get("REGENERATE_COMMENTARY"):
+        print("기존 해설 유지:", cpath)  # 같은 기간을 다시 돌려도 손으로 고친 해설을 덮어쓰지 않는다
+    else:
+        commentary.write(stem + ".json", stem + ".txt", cpath)
     run("--period", a.period, "--render", info["KEY"])
     build_site.build()
     set_output("skipped", "false")
